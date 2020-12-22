@@ -123,3 +123,57 @@ In this section we'll begin the installation and setup process. We'll start by i
 7. Start the setup script to begin installation:
     - `sudo ./setup.sh`
     - The setup Bash script will prompt you for the Webex Bot token and the Person ID collected in the previous section.  It will then download additional files from the Github repo and configure the background service.
+8. When finished, the Bash script will force a reboot of the Pi Zero. If the configuration was successful and the API access tokens are valid, the background service should start automatically on bootup and the LEDs should activate.
+
+## Testing and Troubleshooting
+
+Wait, you mean it *didn't* work right the first time???  It's a well known axiom that code rarely works right on the first try...and if it does, you should be suspicious! There are several places where this setup process could go wrong and its always best to watch the SSH console output carefully as the installation progresses. Detailed error messages or warnings will often be displayed on the console.
+
+Some common spots for trouble could be:
+- Installation failures due to insufficient privileges.
+    - Most system modifying commands will require the use of the `sudo` prefix.  The `sudo` command stands for "Superuser Do" and it is the equivalent of choosing "Run as Administrator" on Windows operating systems.
+- Installation failures due to missing dependencies.
+    - Be sure to leverage the Aptitude (`apt-get`) package manager for installing programs.
+    - Be sure to use the Pip package manager for installing Python modules.
+    - When installing the Python modules listed above, make sure to run the command using `sudo` because this will install the package at the system level, making it available to all users and Python instances.
+- Run the script using Python3 - a few of the code conventions used in the script are not backward compatible with Python2. If you aren't sure whether you're using Python3, make sure you're running the script with the command `python3 <script_name>`.
+- Webex credentials aren't working, causing the API calls to fail.
+    - If you copied the Bot token or your ID token incorrectly, you can repeat the steps in the earlier section to obtain them again. **NOTE**: The Bot token is only displayed once - if you have to obtain the token again, a brand new one will be generated.
+    - If your tokens need to be updated post-installation, you can edit the service configuration file directly to change them.  Follow this procedure:
+        - `sudo nano /etc/systemd/system/webexapp.service`
+        - Edit the proper lines for the token(s)
+        - Press `Ctrl + O` to save the file, then `Ctrl + Z` to exit.
+        - Refresh the System Daemon by running the command `sudo systemctl daemon-reload`
+        - Restart the service with the command `sudo systemctl start webexapp.service`
+- Not sure why the service is crashing?
+    - Run the command `sudo systemctl status webexapp.service` to view the last few lines of log output. These normally give some indication why the service crashed.
+    - You can also run the command `sudo journalctl -f -u webexapp.service` to follow the "tail" output of the Journal log for the service.
+- Need to view the output of the script to troubleshoot?
+    - The `webexapp.py` Python script is the heart of this service and it is stored in the `/home/pi` directory. In order to run it directly you will need to edit the file and manually enter the Bot token and Person ID in the code, in place of the environmental variables that are registered by the `webexapp.service` config file.
+        - Once edited, you can run the file with the command `python3 webexapp.py`.  To stop the script, press `Ctrl + C`.
+        - Once stopped the LED lights will likely remain on. To turn them off after stopping the script, run the command `python3 ledclean.py`.
+- If all else fails, Google the error message :grin:
+
+## Directory Structure
+
+The following is a directory tree structure that illustrates the files installed and where they are placed.
+
+```
+/
+└─── home
+|    └─── pi
+|         └─── setup.sh
+|         └─── webexapp.py
+|         └─── ledclean.py
+|         └─── rgbtest.py
+└─── etc
+     └─── systemd
+          └─── system
+               └─── webexapp.service
+```
+
+Environmental Variables
+```
+WEBEX_TEAMS_ACCESS_TOKEN
+PERSON
+```
