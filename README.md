@@ -1,6 +1,6 @@
 # Webex Status Light
 
- This is a project originally created by Matthew Fugel (https://github.com/matthewf01/Webex-Teams-Status-Box), which I have forked and improved for my needs. It utilizes a Raspberry Pi computing platform (any model from v3 forward should work - I am using a Pi Zero Wireless), an LED setup connected to the GPIO headers, and the Webex Teams API Python SDK. The Python script is run as a background service in Debian Linux and, utilizing the SDK, it makes an API call to Webex every 60 seconds to check the current presence status of the user configured during setup.
+ This is a project originally created by Matthew Fugel (https://github.com/matthewf01/Webex-Teams-Status-Box), which I have copied and improved for my needs. It utilizes a Raspberry Pi computing platform (any model from v3 forward should work - I am using a Pi Zero Wireless), an LED setup connected to the GPIO headers, and the Webex Teams API Python SDK. The Python script is run as a background service in Debian Linux and, utilizing the SDK, it makes an API call to Webex every 60 seconds to check the current presence status of the user configured during setup.
 
  I have encountered regular connection rejects from the API, possibly due to rate-limiting, which I handle by backing off for 10 seconds and then re-running the API call.  The service and script will run indefinitely unless explicitly killed via a root privileged user, or if the service encounters a fatal error. Historical logging for the service is handled by the system Journal daemon (`journalctl`).
 
@@ -94,10 +94,9 @@ The Webex API will require two sets of credentials to utilize in this script.  T
 3. Go to https://developer.webex.com/docs/api/v1/people/get-my-own-details and log in with your CCO account (if necessary).
 4. You should see a "Try It" button at the top-right of the webpage and a hidden "Bearer" token under the Header section.  Click the **Run** button near the bottom.
     - ![Get My Details Page](/images/Get_My_Details.png)
-5. Below the **Run** button you should see output in the "Response" section. Copy the value from the `id` key at the top of the output (copy only the characters, not the double quotes "").
+5. Below the **Run** button you should see output in the "Response" section. Copy and document the value from the `id` key at the top of the output (copy only the characters, not the double quotes "").
     - ![Get ID](/images/Get_ID.png)
     - BONUS: You just made your first API call :grin:
-6.
 
 ## Installation
 
@@ -121,4 +120,6 @@ In this section we'll begin the installation and setup process. We'll start by i
     - `cd`
       - Issuing this command with no arguments changes directory back to the current user's Home directory.
     - `wget -O setup.sh https://raw.githubusercontent.com/miarond/Webex_Status_Light/main/setup.sh`
-7. Start the setup script to begin installation.
+7. Start the setup script to begin installation:
+    - `sudo ./setup.sh`
+    - The setup Bash script will prompt you for the Webex Bot token and the Person ID collected in the previous section.  It will then download additional files from the Github repo and configure the background service.

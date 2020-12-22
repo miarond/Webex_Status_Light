@@ -1,5 +1,5 @@
 #!/bin/sh
-# Webex App Status Light - Forked and improved by Aron Donaldson, original concept by:
+# Webex App Status Light - Improved by Aron Donaldson, original concept by:
 # 2020-04-03 Matthew Fugel
 # https://github.com/matthewf01/Webex-Teams-Status-Box/
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # 2020-12-22 Aron Donaldson
-# Webex Status Light - forked and improved by Aron Donaldson, original concept from:
+# Webex Status Light - Improved by Aron Donaldson, original concept from:
 # 2020-04-01 Matthew Fugel, https://github.com/matthewf01/Webex-Teams-Status-Box
 # Example wiring diagrams for LEDs
 # https://www.instructables.com/id/Raspberry-Pi-3-RGB-LED-With-Using-PWM/
