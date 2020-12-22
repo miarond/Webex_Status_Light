@@ -9,8 +9,9 @@
 1. [Parts List](#parts-list)
 2. [SD Card Setup](#sd-card-setup)
 3. [Assembly](#assembly)
-4. [Installation](#installation)
-5. [Testing and Troubleshooting](#testing-and-troubleshooting)
+4. [Collect Webex Credentials](#collect-webex-credentials)
+5. [Installation](#installation)
+6. [Testing and Troubleshooting](#testing-and-troubleshooting)
 
 ## Parts List
 
@@ -81,4 +82,42 @@ In this step we will install all the necessary components, insert the Pi Zero in
     - The pins are GPIO 10, 9, 11, and Ground - physical pin numbers 19, 21, 23, and 25 - as shown in the diagram below.
     - ![Pi Zero GPIO Pinout Diagram](/images/Pi0_GPIO_Pinout.png)
     - ![Light Placement](/images/Light_Placement.png)
-5.
+5. Connect the Micro USB cable and charging block to the `PWR IN` connector on the Pi Zero (the connector closest to the corner of the circuit board) and power on the system.
+6. Start a continuous ping on your computer to **raspberrypi.local** and cancel it when the device begins responding. This hostname should always resolve to the Pi's local IP address on your network but if it does not, check your switch/router/DHCP server to determine what IP address the Pi obtained.
+
+## Collect Webex Credentials
+
+The Webex API will require two sets of credentials to utilize in this script.  The first is a Webex Bot Token that you will generate when you create a new Webex Bot.  The Bot is the actual application that will be checking the status of the Webex user.  The second piece of information is the Webex user's Person ID - a unique identifying string assigned to each user.  The script passes this Person ID to the Webex Bot to tell it which user to check the status of.
+
+1. Go to https://developer.webex.com/my-apps/new/bot and log in with your Cisco CCO account.
+2. Fill out all the necessary fields, then collect and document the Bot Token that is generated.
+3. Go to https://developer.webex.com/docs/api/v1/people/get-my-own-details and log in with your CCO account (if necessary).
+4. You should see a "Try It" button at the top-right of the page and a hidden "Bearer" token under the Header section.  Click the **Run** button near the bottom.
+    - ![Get My Details Page](/images/Get_My_Details.png)
+5. Below the **Run** button you should see output in the "Results" section. Copy the value from the `id` key at the top of the output (copy only the characters, not the double quotes "").
+    - ![Get ID](/images/Get_ID.png)
+6. 
+
+## Installation
+
+In this section we'll begin the installation and setup process. We'll start by installing Python 3 (the Debian image comes with Python 2 pre-installed but this script is not fully backward compatible) and the necessary Python modules. Then we will install the Python script and configure the background service.
+
+1. Establish an SSH session to your Pi Zero.
+    - Username: `pi`
+    - Password: `raspberry`
+2. Verify Internet connectivity and then begin installing Python 3 and Pip 3 (the Python package manager) by running the following commands:
+    - `sudo apt-get update`
+    - `sudo apt-get install python3.6 python3-pip`
+3. Check that Python 3 and Pip 3 are installed properly:
+    - `python3 --version`
+    - `pip3 --version`
+4. Install the RPi.GPIO and Webex Teams SDK Python packages *system-wide*:
+    - `sudo pip3 install RPi.GPIO`
+    - `sudo pip3 install webexteamssdk`
+5. Check that the Python packages were properly installed:
+    - `sudo pip3 list`
+6. Ensure that you are in your home directory, then download the setup script from this Github repository:
+    - `cd`
+      - Issuing this command with no arguments changes directory back to the current user's Home directory.
+    - `wget -O setup.sh https://raw.githubusercontent.com/miarond/Webex_Status_Light/main/setup.sh`
+7. Start the setup script to begin installation.
