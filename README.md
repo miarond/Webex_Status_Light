@@ -45,11 +45,11 @@ The Raspberry Pi computing platform most commonly runs a distribution of the Lin
 
 1. Insert your Micro SD Card in a card reader and ensure that it is readable.
 2. Visit the "Getting Started" guide and follow the instructions [here](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/2) to setup your SD card.
-  - This requires downloading the Raspberry Pi Imager application, then choosing an installation image to download (you can also download the image manually and pick it from your local machine via the Imager app). **This guide assumes you are choosing the "Lite" version.**
+    - This requires downloading the Raspberry Pi Imager application, then choosing an installation image to download (you can also download the image manually and pick it from your local machine via the Imager app). **This guide assumes you are choosing the "Lite" version.**
 3. Using the Imager application, write the image file to the SD card.
 4. Once writing is complete, open the SD card in Finder or Windows Explorer. We will be creating two text files and editing one existing file in the root directory of the SD card, in order to pre-set some basic configuration parameters.
-  - This setup process is known as "**headless**" mode and is really well documented on Adafruit's website [here](https://learn.adafruit.com/raspberry-pi-zero-creation).
-  - The text file setup process is explained on [this](https://learn.adafruit.com/raspberry-pi-zero-creation/text-file-editing) page of the guide.
+    - This setup process is known as "**headless**" mode and is really well documented on Adafruit's website [here](https://learn.adafruit.com/raspberry-pi-zero-creation).
+    - The text file setup process is explained on [this](https://learn.adafruit.com/raspberry-pi-zero-creation/text-file-editing) page of the guide.
 5. Create a *blank* text file called `ssh` - there should be **NO** file extension in the filename.  This file tells Debian to enable SSH access permanently on first bootup.
 6. Create a text file named `wpa_supplicant.conf` and add the text below. MAKE SURE to replace `"YOURSSID"` and `"YOURPASSWORD"` with your actual wireless SSID and PSK. This pre-loads Debian with your wireless network info so it will automatically connect.
   ```
@@ -78,6 +78,6 @@ In this step we will install all the necessary components, insert the Pi Zero in
 2. Insert the Pi Zero board into the plastic case's bottom half (red plastic section). The best method to prevent damage is to insert the long edge containing the HDMI and USB ports first to make sure they line up with the holes properly and extend slightly into the openings. There is a small retainer "bump" on each long edge of the case. Finally, firmly press down the opposite long edge until it snaps into place below the opposite retainer "bump".
 3. Select the white case cover with the long opening that exposes all of the GPIO header pins, then install it on the case.
 4. Install the Pi Traffic Light circuit board onto the correct GPIO header pins. The LEDs on the circuit board should be facing outward, away from the edge of the Pi Zero circuit board.
-  - The pins are GPIO 10, 9, 11, and Ground - physical pin numbers 19, 21, 23, and 25 - as shown in the diagram below.
-  - ![Pi Zero GPIO Pinout Diagram](/images/Pi0_GPIO_Pinout.png)
+    - The pins are GPIO 10, 9, 11, and Ground - physical pin numbers 19, 21, 23, and 25 - as shown in the diagram below.
+    - ![Pi Zero GPIO Pinout Diagram](/images/Pi0_GPIO_Pinout.png)
 5.
