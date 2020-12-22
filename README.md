@@ -92,11 +92,12 @@ The Webex API will require two sets of credentials to utilize in this script.  T
 1. Go to https://developer.webex.com/my-apps/new/bot and log in with your Cisco CCO account.
 2. Fill out all the necessary fields, then collect and document the Bot Token that is generated.
 3. Go to https://developer.webex.com/docs/api/v1/people/get-my-own-details and log in with your CCO account (if necessary).
-4. You should see a "Try It" button at the top-right of the page and a hidden "Bearer" token under the Header section.  Click the **Run** button near the bottom.
+4. You should see a "Try It" button at the top-right of the webpage and a hidden "Bearer" token under the Header section.  Click the **Run** button near the bottom.
     - ![Get My Details Page](/images/Get_My_Details.png)
-5. Below the **Run** button you should see output in the "Results" section. Copy the value from the `id` key at the top of the output (copy only the characters, not the double quotes "").
+5. Below the **Run** button you should see output in the "Response" section. Copy the value from the `id` key at the top of the output (copy only the characters, not the double quotes "").
     - ![Get ID](/images/Get_ID.png)
-6. 
+    - BONUS: You just made your first API call :grin:
+6.
 
 ## Installation
 
