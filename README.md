@@ -80,4 +80,5 @@ In this step we will install all the necessary components, insert the Pi Zero in
 4. Install the Pi Traffic Light circuit board onto the correct GPIO header pins. The LEDs on the circuit board should be facing outward, away from the edge of the Pi Zero circuit board.
     - The pins are GPIO 10, 9, 11, and Ground - physical pin numbers 19, 21, 23, and 25 - as shown in the diagram below.
     - ![Pi Zero GPIO Pinout Diagram](/images/Pi0_GPIO_Pinout.png)
+    - ![Light Placement](/images/Light_Placement.png)
 5.
