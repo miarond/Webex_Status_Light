@@ -112,19 +112,16 @@ In this section we'll begin the installation and setup process. We'll start by i
 3. Check that Python 3 and Pip 3 are installed properly:
     - `python3 --version`
     - `pip3 --version`
-4. Install the RPi.GPIO and Webex Teams SDK Python packages *system-wide*:
-    - `sudo pip3 install RPi.GPIO`
-    - `sudo pip3 install webexteamssdk`
-5. Check that the Python packages were properly installed:
+4. Check that the Python packages were properly installed:
     - `sudo pip3 list`
-6. Ensure that you are in your home directory, then download the setup script from this Github repository:
+5. Ensure that you are in your home directory, then download the setup script from this Github repository:
     - `cd`
       - Issuing this command with no arguments changes directory back to the current user's Home directory.
     - `wget -O setup.sh https://raw.githubusercontent.com/miarond/Webex_Status_Light/main/setup.sh`
-7. Start the setup script to begin installation:
+6. Start the setup script to begin installation:
     - `sudo ./setup.sh`
     - The setup Bash script will prompt you for the Webex Bot token and the Person ID collected in the previous section.  It will then download additional files from the Github repo and configure the background service.
-8. When finished, the Bash script will force a reboot of the Pi Zero. If the configuration was successful and the API access tokens are valid, the background service should start automatically on bootup and the LEDs should activate.
+7. When finished, the Bash script will force a reboot of the Pi Zero. If the configuration was successful and the API access tokens are valid, the background service should start automatically on bootup and the LEDs should activate.
 
 ## Testing and Troubleshooting
 
