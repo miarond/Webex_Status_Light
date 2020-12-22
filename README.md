@@ -12,6 +12,7 @@
 4. [Collect Webex Credentials](#collect-webex-credentials)
 5. [Installation](#installation)
 6. [Testing and Troubleshooting](#testing-and-troubleshooting)
+7. [Directory Structure](#directory-structure)
 
 ## Parts List
 
