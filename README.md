@@ -109,7 +109,7 @@ The Webex API will require two sets of credentials to utilize in this script.  T
 
 ## Installation
 
-In this section we'll begin the installation and setup process. We'll start by installing Python 3 (the Debian image comes with Python 2 pre-installed but this script is not fully backward compatible) and the necessary Python modules. Then we will install the Python script and configure the background service. Additionally, in the Testing and Troubleshooting section I've given an explanation of the `sudo` command prefix that you'll find in this section.
+In this section we'll begin the installation and setup process. We'll start by verifying that Python 3 is installed (the Debian image comes with Python 2 and 3 pre-installed but this script is not fully backward compatible with Python 2) and the necessary Python modules. Then we will install the Python script and configure the background service. Additionally, in the Testing and Troubleshooting section I've given an explanation of the `sudo` command prefix that you'll find in this section.
 
 1. Establish an SSH session to your Pi Zero.
     - Username: `pi`
