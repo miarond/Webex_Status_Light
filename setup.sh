@@ -32,8 +32,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable webexapp.service
 
 # Install external dependencies
-sudo pip install webexteamssdk
-sudo pip install RPi.GPIO
+sudo pip3 install webexteamssdk
+sudo pip3 install RPi.GPIO
 
 # Finally, reboot
 echo "Install complete. Rebooting..."
