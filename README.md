@@ -69,8 +69,16 @@ The Raspberry Pi computing platform most commonly runs a distribution of the Lin
   ```
   # Enable UART
   enable_uart=1
+
+  # Enable Ethernet over USB
+  dtoverlay=dwc2
   ```
-8. Last but not least, safely eject the SD card from your computer.
+8. Edit the `cmdline.txt` file that already exists and add the text `modules-load=dwc2,g_ether` after `rootwait`. This file should contain a single line of text with no line breaks and the text you add should be separated from `rootwait` by a single space. The end result should look like this:
+```
+console=serial0,115200 console=tty1 root=PARTUUID=eabcf7ff-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait modules-load=dwc2,g_ether
+```
+  - More detailed instructions on how to utilize Ethernet over USB will be covered in the Testing and Troubleshooting section below.
+9. Last but not least, safely eject the SD card from your computer.
 
 ## Assembly
 
@@ -140,6 +148,7 @@ Wait, you mean it *didn't* work right the first time???  It's a well known axiom
 Some common spots for trouble could be:
 - Installation failures due to insufficient privileges.
     - Most system modifying commands will require the use of the `sudo` prefix.  The `sudo` command stands for "Superuser Do" and it is the equivalent of choosing "Run as Administrator" on Windows operating systems.
+    - As mentioned in the previous section, files that need to be executed (like Bash scripts) will require execute permissions which may not be set by default.  To view the permissions of any file or directory you can change directory to where that file or folder exists, then run the `ls -al` command. Running the `chmod +x <filename>` command will add execute permissions - using `-r` or `-w` will add read or write permissions.
 - Installation failures due to missing dependencies.
     - Be sure to leverage the Aptitude (`apt-get`) package manager for installing programs.
     - Be sure to use the Pip package manager for installing Python modules.
@@ -161,6 +170,10 @@ Some common spots for trouble could be:
         - Once edited, you can run the file with the command `python3 webexapp.py`.  To stop the script, press `Ctrl + C`.
         - Once stopped the LED lights will likely remain on. To turn them off after stopping the script, run the command `python3 ledclean.py`.
 - If all else fails, Google the error message :grin:
+
+If your Pi doesn't come online and connect to your wireless network automatically, you can try connecting a keyboard, mouse and monitor if you have the proper adapters for both Micro USB and Mini HDMI. However, if you don't have those adapters you CAN use the USB data cable to establish an emergency terminal/console session. The process is partially documented on this website [The Polyglot Developer](https://www.thepolyglotdeveloper.com/2016/06/connect-raspberry-pi-zero-usb-cable-ssh/). Windows users will need to install Apple's [Bonjour Print Services](https://support.apple.com/kb/DL999?locale=en_US) application to communicate with the Pi over USB (this is the only method I have personally tested). Mac users should not need this additional step (as documented [here](https://learn.adafruit.com/bonjour-zeroconf-networking-for-windows-and-linux)).
+
+Once setup is complete on your computer, connect the Micro USB cable to the **USB** port on the Pi (NOT the PWR IN port) and to a USB port on your computer. The Pi should power on and establish a network connection to your computer via the USB cable. You can then simply SSH to `raspberrypi.local` from your computer and you should be able to connect to the Pi just like you would over a network connection.
 
 ## Directory Structure
 
