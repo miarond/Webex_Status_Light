@@ -33,7 +33,7 @@
   - ![Image from www.sandisk.com](/images/SDHC.jpg)
 
 <b><u>Bring your own:</u></b>
-- Micro USB charging cable (standard phone cable will work)
+- Micro USB **data transfer** cable. Normally a standard smartphone cable will work as long as it is not a *charging only* cable.
   - ![Image from www.bestbuy.com](/images/Micro_USB_Cable.jpg)
 - 5v USB charging block (minimum 1 Amp capacity)
 - Windows or Mac laptop for SSH and SFTP file transfer
@@ -101,28 +101,37 @@ The Webex API will require two sets of credentials to utilize in this script.  T
 
 ## Installation
 
-In this section we'll begin the installation and setup process. We'll start by installing Python 3 (the Debian image comes with Python 2 pre-installed but this script is not fully backward compatible) and the necessary Python modules. Then we will install the Python script and configure the background service.
+In this section we'll begin the installation and setup process. We'll start by installing Python 3 (the Debian image comes with Python 2 pre-installed but this script is not fully backward compatible) and the necessary Python modules. Then we will install the Python script and configure the background service. Additionally, in the Testing and Troubleshooting section I've given an explanation of the `sudo` command prefix that you'll find in this section.
 
 1. Establish an SSH session to your Pi Zero.
     - Username: `pi`
     - Password: `raspberry`
     - To change the default password, log in via SSH then run the command `passwd`.  Follow the prompts to change the password.
-2. Verify Internet connectivity and then begin installing Python 3 and Pip 3 (the Python package manager) by running the following commands:
+2. Verify Internet connectivity and then check if Python 3 and Pip 3 (the Python package manager)  are installed by running the following commands:
     - `sudo apt-get update`
-    - `sudo apt-get install python3.6 python3-pip`
-3. Check that Python 3 and Pip 3 are installed properly:
     - `python3 --version`
     - `pip3 --version`
-4. Check that the Python packages were properly installed:
-    - `sudo pip3 list`
-5. Ensure that you are in your home directory, then download the setup script from this Github repository:
+3. In my testing Python 3.7.3 was installed by default but Pip was not.  If either need to be installed, run the following commands:
+    - `sudo apt-get install python3.7`
+    - `sudo apt-get install python3-pip`
+    - Re-run the version check command(s) in step 2 to verify the installation worked.
+4. Ensure that you are in your home directory, then download the setup script from this Github repository:
     - `cd`
       - Issuing this command with no arguments changes directory back to the current user's Home directory.
     - `wget -O setup.sh https://raw.githubusercontent.com/miarond/Webex_Status_Light/main/setup.sh`
-6. Start the setup script to begin installation:
+5. Verify the file permissions of the newly created setup.sh file:
+    - Run the command `ls -al | grep setup` to view the file and its attributes.
+      - My output looked like this:
+      ```
+      pi@raspberrypi:~ $ ls -al | grep setup
+      -rw-r--r-- 1 pi   pi   1848 Dec 23 12:41 setup.sh
+      ```
+      - File attributes are shown in the format `drwxrwxrwx` where the first letter denotes either a file (`-`) or a directory (`d`). The next groupings of 3 letters denote read (`r`), write (`w`) and execute (`x`) permissions. As you can see, my file is missing the execute permission.
+    - Add execute permissions to the file by running the command `chmod +x setup.sh`.  Because the `pi` user account is the owner of the file, we can run this command without adding the `sudo` prefix.
+5. Start the setup script to begin installation:
     - `sudo ./setup.sh`
     - The setup Bash script will prompt you for the Webex Bot token and the Person ID collected in the previous section.  It will then download additional files from the Github repo and configure the background service.
-7. When finished, the Bash script will force a reboot of the Pi Zero. If the configuration was successful and the API access tokens are valid, the background service should start automatically on bootup and the LEDs should activate.
+6. When finished, the Bash script will force a reboot of the Pi Zero. If the configuration was successful and the API access tokens are valid, the background service should start automatically on bootup and the LEDs should activate.
 
 ## Testing and Troubleshooting
 
