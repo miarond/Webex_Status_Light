@@ -4,6 +4,16 @@
 
  I have encountered regular connection rejects from the API, possibly due to rate-limiting, which I handle by backing off for 10 seconds and then re-running the API call.  The service and script will run indefinitely unless explicitly killed via a root privileged user, or if the service encounters a fatal error. Historical logging for the service is handled by the system Journal daemon (`journalctl`).
 
+### Improvements on Original Code
+
+- Error handling and recovery via the Webex Teams API
+- Functions for turning the LED on and off
+- Previous state tracking for the LED status
+- LED test on initial startup
+- Changing the single multi-color LED to a 3-LED pre-built circuit board that is commercially available (eliminates the need to build your own LED with resistors)
+- LED state cleanup on service stop or crash
+- Improved instructions for full build process, improved code comments and cleanup
+
 # Table of Contents
 
 1. [Parts List](#parts-list)
