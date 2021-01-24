@@ -160,7 +160,7 @@ Wait, you mean it *didn't* work right the first time???  It's a well known axiom
 Some common spots for trouble could be:
 - Installation failures due to insufficient privileges.
     - Most system modifying commands will require the use of the `sudo` prefix.  The `sudo` command stands for "Superuser Do" and it is the equivalent of choosing "Run as Administrator" on Windows operating systems.
-    - As mentioned in the previous section, files that need to be executed (like Bash scripts) will require execute permissions which may not be set by default.  To view the permissions of any file or directory you can change directory to where that file or folder exists, then run the `ls -al` command. Running the `chmod +x <filename>` command will add execute permissions - using `-r` or `-w` will add read or write permissions.
+    - As mentioned in the previous section, files that need to be executed (like Bash scripts) will require execute permissions which may not be set by default.  To view the permissions of any file or directory you can change directory to where that file or folder exists, then run the `ls -al` command. Running the `chmod +x <filename>` command will add execute permissions - using `+r` or `+w` will add read or write permissions.
 - Installation failures due to missing dependencies.
     - Be sure to leverage the Aptitude (`apt-get`) package manager for installing programs.
     - Be sure to use the Pip package manager for installing Python modules.
