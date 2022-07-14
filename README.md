@@ -171,7 +171,7 @@ Some common spots for trouble could be:
     - If your tokens need to be updated post-installation, you can edit the service configuration file directly to change them.  Follow this procedure:
         - `sudo nano /etc/systemd/system/webexapp.service`
         - Edit the proper lines for the token(s)
-        - Press `Ctrl + O` to save the file, then `Ctrl + Z` to exit.
+        - Press `Ctrl + O` to save the file, then `Ctrl + X` to exit.
         - Refresh the System Daemon by running the command `sudo systemctl daemon-reload`
         - Restart the service with the command `sudo systemctl start webexapp.service`
 - Not sure why the service is crashing?
