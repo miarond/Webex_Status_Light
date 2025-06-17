@@ -24,17 +24,17 @@ echo "Environment=PERSON="$person >> mycredentials.txt
 # wget -O rgbtest.py https://raw.githubusercontent.com/miarond/Webex_Status_Light/main/rgbtest.py
 
 # Update service file with creds using 'sed' to find & replace 'foo' and 'bar' placeholders with user's credentials.
-sed -i "s/foo/$accessToken/" webexapp.service
-sed -i "s/bar/$person/" webexapp.service
-sed -i "s/<user>/$USER/" webexapp.service
-sed -i "s/<replace>/$PWD/" webexapp.service
+sed -i 's@foo@'"$accessToken"'@' webexapp.service
+sed -i 's@bar@'"$person"'@' webexapp.service
+sed -i 's@<user>@'"$USER"'@' webexapp.service
+sed -i 's@<replace>@'"$PWD"'@' webexapp.service
 
 # Copy the service's unit file out to systemd, then register app as a service
-sudo mv webexapp.service /etc/systemd/system
+sudo cp webexapp.service /etc/systemd/system
 if [ "$schedule" == "y" ]; then
-    sudo mv webexapp-stop.service /etc/systemd/system
-    sudo mv webexapp.timer /etc/systemd/system
-    sudo mv webexapp-stop.timer /etc/systemd/system
+    sudo cp webexapp-stop.service /etc/systemd/system
+    sudo cp webexapp.timer /etc/systemd/system
+    sudo cp webexapp-stop.timer /etc/systemd/system
 fi
 sudo systemctl daemon-reload
 sudo systemctl enable webexapp.service
