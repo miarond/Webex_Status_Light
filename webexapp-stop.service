@@ -1,0 +1,6 @@
+[Unit]
+Description=Webex Status Light - Stop Service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl stop webexapp.service

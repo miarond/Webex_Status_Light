@@ -8,18 +8,17 @@
 import os
 import time
 import sys
-from webexteamssdk import WebexTeamsAPI
-from webexteamssdk import ApiError
+from webexpythonsdk import WebexAPI, ApiError, RateLimitError
 import RPi.GPIO as GPIO
 
 # Obtaining Bot token and PersonID from environmental variables
-bot_token=os.environ.get('WEBEX_TEAMS_ACCESS_TOKEN')
-api=WebexTeamsAPI(access_token=bot_token)
-mywebexid=os.environ.get('PERSON')
+bot_token=os.environ.get('BOT_ACCESS_TOKEN')
+api=WebexAPI(access_token=bot_token)
+mywebexid=os.environ.get('PERSON_ID')
 
 # Helpful stuff you can run if using your personal access token temporarily to test:
 # person= api.people.me()
-# print (person.status,person.displayName)
+# print(person.status,person.displayName)
 
 # Set up for RGB LEDs. Use GPIO pins referenced below when wiring:
 # By using BCM mode the module uses pinout numbers as they are assigned by the Broadcom SOC. This method could cause the script to fail if hardware revisions change the pin layout in the future.
@@ -48,13 +47,12 @@ def led_on(color):
 		GREEN.ChangeDutyCycle(100)
 
 # Create function to turn light off
-def led_off(color):
-        if color == "RED":
-                RED.ChangeDutyCycle(0)
-        elif color == "YELLOW":
-                YELLOW.ChangeDutyCycle(0)
-        else:
-                GREEN.ChangeDutyCycle(0)
+def led_off(color=None):
+		if color:
+			color.ChangeDutyCycle(0)
+		else:
+			for color in ("RED", "YELLOW", "GREEN"):
+				color.ChangeDutyCycle(0)
 
 # Start the GPIO pin output like a drag strip light tree :)
 RED.start(100)
@@ -71,38 +69,35 @@ while True:
 	try:
 		status = api.people.get(personId=mywebexid).status
 		#Status codes include: active,inactive,DoNotDisturb,meeting,presenting,call
+		led_off(last_state)
 		if status in ("active", "inactive"):
-			if last_state is None:
-				pass
-			else:
-				led_off(last_state)
-			print ("Status is:", status, "Action: GREEN")
+			print("Status is:", status, "Action: GREEN")
 			led_on("GREEN")
-			last_state="GREEN"
-			time.sleep(60)
+			last_state = "GREEN"
+			time.sleep(15)
 		elif status in ("call", "meeting"):
-			if last_state is None:
-				pass
-			else:
-				led_off(last_state)
-			print ("Status is:", status, "Action: YELLOW")
+			print("Status is:", status, "Action: YELLOW")
 			led_on("YELLOW")
-			last_state="YELLOW"
-			time.sleep(60)
+			last_state = "YELLOW"
+			time.sleep(15)
+		elif status in ("OutOfOffice"):
+			print("Status is:", status, "Action: OFF")
+			led_off(last_state)
+			last_state = None
+			time.sleep(300)
 		else:
-			if last_state is None:
-				pass
-			else:
-				led_off(last_state)
-			print ("Status is:", status, "Action: RED")
+			print("Status is:", status, "Action: RED")
 			led_on("RED")
-			last_state="RED"
-			time.sleep(60)
+			last_state = "RED"
+			time.sleep(15)
 	except KeyboardInterrupt:
 		GPIO.cleanup()
 		sys.exit(0)
 	except ApiError as e:
-		print ("Unexpected error occured:",e)
-		time.sleep(10)
+		print("Unexpected error occured:",e)
+		time.sleep(5)
+	except RateLimitError as e:
+		print(f"Rate limit reached; backing off {e.retry_after} seconds.")
+		time.sleep(e.retry_after)
 	except:
-		time.sleep(10)
+		time.sleep(5)

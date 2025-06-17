@@ -1,0 +1,9 @@
+[Unit]
+Description=Stop webexapp.service
+
+[Timer]
+OnCalendar=Mon..Fri 17:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

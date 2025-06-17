@@ -1,12 +1,12 @@
 [Unit]
-Description=Webex Teams Status Light
+Description=Webex Status Light
 After=network.target
 
 [Service]
-Environment=WEBEX_TEAMS_ACCESS_TOKEN=foo
-Environment=PERSON=bar
-ExecStart=/usr/bin/python3 /home/pi/webexapp.py
-ExecStop=/usr/bin/python3 /home/pi/ledclean.py
+Environment=BOT_ACCESS_TOKEN=foo
+Environment=PERSON_ID=bar
+ExecStart=source <replace>/venv/bin/activate && <replace>/venv/bin/python3 <replace>/webexapp.py
+ExecStop=<replace>/venv/bin/python3 <replace>/ledclean.py && deactivate
 Restart=on-abnormal
 RestartSec=15s
 KillMode=process
