@@ -48,11 +48,12 @@ def led_on(color):
 
 # Create function to turn light off
 def led_off(color=None):
-		if color:
-			color.ChangeDutyCycle(0)
-		else:
-			for color in ("RED", "YELLOW", "GREEN"):
-				color.ChangeDutyCycle(0)
+	if color == "RED":
+		RED.ChangeDutyCycle(0)
+	elif color == "YELLOW":
+		YELLOW.ChangeDutyCycle(0)
+	else:
+		GREEN.ChangeDutyCycle(0)
 
 # Start the GPIO pin output like a drag strip light tree :)
 RED.start(100)

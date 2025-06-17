@@ -1,2 +1,2 @@
-webexteamssdk
-RPi.GPIO
+webexpythonsdk==2.0.4
+RPi.GPIO==0.7.1
